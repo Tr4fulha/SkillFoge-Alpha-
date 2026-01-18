@@ -4,6 +4,7 @@ import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-d
 import TopBar from './components/TopBar';
 import Navigation from './components/Navigation';
 import BottomNav from './components/BottomNav';
+import Onboarding from './components/Onboarding';
 import { UserProvider, useUser } from './context/UserContext';
 import { Loader2 } from 'lucide-react';
 
@@ -25,6 +26,8 @@ const AppContent: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-dark font-sans text-text flex flex-col">
+            <Onboarding />
+            
             {!isDetailPage && <TopBar />}
             
             <div className="flex flex-1 relative">
