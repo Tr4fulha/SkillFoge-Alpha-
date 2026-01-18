@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Plataforma de aprendizado técnico gamificado.">
+    
+    <title>SkillForge - Desafios Técnicos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1', // Indigo 500
+              secondary: '#10b981', // Emerald 500
+              dark: '#0f172a', // Slate 900
+              card: '#1e293b', // Slate 800
+              text: '#f1f5f9', // Slate 100
+              muted: '#94a3b8', // Slate 400
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-out forwards',
+              'slide-up': 'slideUp 0.4s ease-out forwards',
+              'slide-left': 'slideLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            },
+            keyframes: {
+              fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+              slideUp: { '0%': { transform: 'translateY(10px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+              slideLeft: { '0%': { transform: 'translateX(50px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #0f172a;
+        color: #f1f5f9;
+        -webkit-tap-highlight-color: transparent;
+        overflow-x: hidden;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+      
+      html { scroll-behavior: smooth; }
+
+      ::-webkit-scrollbar { width: 0px; height: 0px; }
+      
+      @media print {
+        body { background: white; color: black; }
+        .no-print { display: none !important; }
+        .print-only { display: block !important; }
+      }
+
+      .perspective-1000 { perspective: 1000px; }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      /* Estilo Play Store Search Bar */
+      .play-search {
+        background: #1e293b;
+        border-radius: 28px;
+        transition: all 0.2s;
+      }
+      .play-search:focus-within {
+        background: #2d3a4f;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
