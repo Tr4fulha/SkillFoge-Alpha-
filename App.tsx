@@ -13,6 +13,7 @@ const Profile = lazy(() => import('./pages/Profile'));
 const LogicLab = lazy(() => import('./pages/LogicLab'));
 const Companies = lazy(() => import('./pages/Companies'));
 const ChallengeDetail = lazy(() => import('./pages/ChallengeDetail'));
+const Messages = lazy(() => import('./pages/Messages'));
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-screen bg-dark text-primary">
@@ -47,6 +48,7 @@ const AppContent: React.FC = () => {
                                 <Route path="/logic" element={<LogicLab />} />
                                 <Route path="/companies" element={<Companies />} />
                                 <Route path="/challenge/:id" element={<ChallengeDetail />} />
+                                <Route path="/messages" element={<Messages />} />
                             </Routes>
                         </Suspense>
                     </div>

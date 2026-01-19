@@ -3,7 +3,7 @@
 import { Category, Challenge, Company, Difficulty, UserProfile, Rarity, Achievement, Comment, Solution } from './types';
 
 export const ALL_ACHIEVEMENTS: Achievement[] = [
-  // COMUNS (10)
+  // --- COMUNS (12) ---
   { id: 'c1', name: 'Primeiro Passo', description: 'Complete seu primeiro desafio.', icon: 'Zap', rarity: Rarity.COMMON, points: 20, isUnlocked: true, date: '10/05/2024' },
   { id: 'c2', name: 'Curioso', description: 'Abra o Mentor IA pela primeira vez.', icon: 'Bot', rarity: Rarity.COMMON, points: 10, isUnlocked: true, date: '11/05/2024' },
   { id: 'c3', name: 'Socializador', description: 'Siga 5 usuários da comunidade.', icon: 'UserPlus', rarity: Rarity.COMMON, points: 30, isUnlocked: false },
@@ -12,10 +12,12 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
   { id: 'c6', name: 'Perfil Completo', description: 'Visualize seu próprio perfil.', icon: 'User', rarity: Rarity.COMMON, points: 10, isUnlocked: true },
   { id: 'c7', name: 'Feedback', description: 'Abra a aba de comentários de um desafio.', icon: 'MessageCircle', rarity: Rarity.COMMON, points: 15, isUnlocked: false },
   { id: 'c8', name: 'Lógico Jr.', description: 'Complete 1 flashcard no LogicLab.', icon: 'Layers', rarity: Rarity.COMMON, points: 20, isUnlocked: false },
-  { id: 'c9', name: 'Economista', description: 'Acumule 500 SkillCoins.', icon: 'Coins', rarity: Rarity.COMMON, points: 30, isUnlocked: false },
+  { id: 'c9', name: 'Economista', description: 'Acumule 50 SkillCoins.', icon: 'Coins', rarity: Rarity.COMMON, points: 30, isUnlocked: false },
   { id: 'c10', name: 'Explorador', description: 'Visite a aba de empresas.', icon: 'Building', rarity: Rarity.COMMON, points: 10, isUnlocked: true },
+  { id: 'c11', name: 'Caçador de Bugs', description: 'Encontre um erro de sintaxe proposital em um desafio.', icon: 'Bug', rarity: Rarity.COMMON, points: 25, isUnlocked: false },
+  { id: 'c12', name: 'Madrugador', description: 'Faça login antes das 8:00 da manhã.', icon: 'Sun', rarity: Rarity.COMMON, points: 15, isUnlocked: false },
 
-  // INCOMUNS (12)
+  // --- INCOMUNS (12) ---
   { id: 'u1', name: 'Focado', description: 'Mantenha um streak de 7 dias.', icon: 'Flame', rarity: Rarity.UNCOMMON, points: 80, reward: 'Moldura Verde', isUnlocked: false },
   { id: 'u2', name: 'Poliglota', description: 'Resolva desafios em 2 categorias diferentes.', icon: 'Globe', rarity: Rarity.UNCOMMON, points: 100, isUnlocked: false },
   { id: 'u3', name: 'Ajudante', description: 'Ganhe 5 pontos de reputação.', icon: 'Star', rarity: Rarity.UNCOMMON, points: 60, isUnlocked: false },
@@ -29,9 +31,9 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
   { id: 'u11', name: 'Vaga à Vista', description: 'Visualize 10 detalhes de empresas.', icon: 'Search', rarity: Rarity.UNCOMMON, points: 50, isUnlocked: false },
   { id: 'u12', name: 'Colecionador', description: 'Ganhe 10 conquistas comuns.', icon: 'Trophy', rarity: Rarity.UNCOMMON, points: 100, isUnlocked: false },
 
-  // RARAS (10)
+  // --- RARAS (10) ---
   { id: 'r1', name: 'Mestre da Lógica', description: 'Complete todos os flashcards do LogicLab.', icon: 'Brain', rarity: Rarity.RARE, points: 300, reward: 'Bônus 1.2x XP', isUnlocked: false },
-  { id: 'r2', name: 'Desenvolvedor Full Stack', description: 'Resolva 10 desafios de Programação.', icon: 'Terminal', rarity: Rarity.RARE, points: 350, isUnlocked: false },
+  { id: 'r2', name: 'Dev Full Stack', description: 'Resolva 10 desafios de Programação.', icon: 'Terminal', rarity: Rarity.RARE, points: 350, isUnlocked: false },
   { id: 'r3', name: 'Arquiteto de Dados', description: 'Resolva 10 desafios de Banco de Dados.', icon: 'Database', rarity: Rarity.RARE, points: 350, isUnlocked: false },
   { id: 'r4', name: 'Engenheiro de Redes', description: 'Resolva 10 desafios de Redes.', icon: 'Server', rarity: Rarity.RARE, points: 350, isUnlocked: false },
   { id: 'r5', name: 'Popular', description: 'Alcance 100 seguidores.', icon: 'Users', rarity: Rarity.RARE, points: 250, isUnlocked: false },
@@ -41,7 +43,7 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
   { id: 'r9', name: 'Perfeito', description: 'Resolva 5 desafios sem usar nenhuma dica.', icon: 'CheckCircle', rarity: Rarity.RARE, points: 350, isUnlocked: false },
   { id: 'r10', name: 'Beta Tester', description: 'Encontre e reporte um feedback técnico.', icon: 'Bug', rarity: Rarity.RARE, points: 200, isUnlocked: false },
 
-  // ÉPICAS (10)
+  // --- ÉPICAS (10) ---
   { id: 'e1', name: 'Lendário do Código', description: 'Resolva 50 desafios de Programação.', icon: 'Cpu', rarity: Rarity.EPIC, points: 600, reward: 'Syntax Theme Dark', isUnlocked: false },
   { id: 'e2', name: 'Oráculo SQL', description: 'Resolva 50 desafios de Banco de Dados.', icon: 'Table', rarity: Rarity.EPIC, points: 600, isUnlocked: false },
   { id: 'e3', name: 'Lorde do Tráfego', description: 'Resolva 50 desafios de Redes.', icon: 'Wifi', rarity: Rarity.EPIC, points: 600, isUnlocked: false },
@@ -53,11 +55,11 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
   { id: 'e9', name: 'Hacker Ético', description: 'Resolva todos os desafios de Segurança/Redes.', icon: 'UserSecret', rarity: Rarity.EPIC, points: 700, isUnlocked: false },
   { id: 'e10', name: 'Maratonista', description: 'Resolva 10 desafios em menos de 24 horas.', icon: 'Timer', rarity: Rarity.EPIC, points: 650, isUnlocked: false },
 
-  // LENDÁRIAS (8)
+  // --- LENDÁRIAS (8) ---
   { id: 'l1', name: 'Deus da Forja', description: 'Resolva TODOS os desafios da plataforma.', icon: 'Hammer', rarity: Rarity.LEGENDARY, points: 1500, reward: 'Título: Forge God', isUnlocked: false },
   { id: 'l2', name: 'Invicto', description: 'Mantenha um streak de 365 dias.', icon: 'Sun', rarity: Rarity.LEGENDARY, points: 1200, reward: 'Aura Dourada Perfil', isUnlocked: false },
-  { id: 'l3', name: 'Mestre de Todas as Artes', description: 'Alcance 100 pontos em todas as categorias de Skill.', icon: 'Diamond', rarity: Rarity.LEGENDARY, points: 1300, isUnlocked: false },
-  { id: 'l4', name: 'Top 1 Global', description: 'Fique em primeiro lugar no ranking mundial.', icon: 'Medal', rarity: Rarity.LEGENDARY, points: 1500, reward: 'Troféu de Ouro no Perfil', isUnlocked: false },
+  { id: 'l3', name: 'Mestre Supremo', description: 'Alcance 100 pontos em todas as categorias de Skill.', icon: 'Diamond', rarity: Rarity.LEGENDARY, points: 1300, isUnlocked: false },
+  { id: 'l4', name: 'Top 1 Global', description: 'Fique em primeiro lugar no ranking mundial.', icon: 'Medal', rarity: Rarity.LEGENDARY, points: 1500, reward: 'Troféu Ouro Real', isUnlocked: false },
   { id: 'l5', name: 'Visionário', description: 'Tenha uma solução validada por uma empresa parceira.', icon: 'Eye', rarity: Rarity.LEGENDARY, points: 1100, reward: 'Badge: Hiring Ready', isUnlocked: false },
   { id: 'l6', name: 'Filantropo', description: 'Doe 5.000 SkillCoins para a comunidade.', icon: 'HeartHandshake', rarity: Rarity.LEGENDARY, points: 1000, isUnlocked: false },
   { id: 'l7', name: 'Imortal', description: 'Resolva 1000 desafios no total.', icon: 'Infinite', rarity: Rarity.LEGENDARY, points: 1400, isUnlocked: false },

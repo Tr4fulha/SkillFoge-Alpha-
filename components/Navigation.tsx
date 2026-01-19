@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Home, User, Briefcase, Puzzle, X } from 'lucide-react';
+import { Home, User, Briefcase, Puzzle, X, MessageSquare } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useScrollLock } from '../utils/hooks';
 
@@ -62,6 +63,7 @@ const Navigation: React.FC<NavigationProps> = ({ isOpen, onClose }) => {
                 <NavItem to="/" icon={Home} label="Desafios" active={location.pathname === '/'} onClick={onClose} />
                 <NavItem to="/logic" icon={Puzzle} label="Lógica" active={location.pathname === '/logic'} onClick={onClose} />
                 <NavItem to="/companies" icon={Briefcase} label="Vagas" active={location.pathname === '/companies'} onClick={onClose} />
+                <NavItem to="/messages" icon={MessageSquare} label="Conversas" active={location.pathname === '/messages'} onClick={onClose} />
                 <NavItem to="/profile" icon={User} label="Perfil" active={location.pathname === '/profile'} onClick={onClose} />
             </div>
         </nav>

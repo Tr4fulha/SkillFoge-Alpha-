@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Gamepad2, LayoutGrid, Search, Gift, User } from 'lucide-react';
+import { Gamepad2, LayoutGrid, Gift, MessageSquare } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { audio } from '../utils/audio';
 
@@ -11,7 +11,7 @@ const BottomNav: React.FC = () => {
     { to: '/', icon: Gamepad2, label: 'Desafios' },
     { to: '/logic', icon: LayoutGrid, label: 'Lógica' },
     { to: '/companies', icon: Gift, label: 'Vagas' },
-    { to: '/profile', icon: User, label: 'Perfil' },
+    { to: '/messages', icon: MessageSquare, label: 'Conversas' },
   ];
 
   return (

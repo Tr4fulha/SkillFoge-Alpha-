@@ -3,12 +3,12 @@ import React, { useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MOCK_USERS, ALL_ACHIEVEMENTS } from '../constants';
 import SkillRadar from '../components/SkillRadar';
-import { Award, Share2, TrendingUp, ArrowLeft, MessageSquare, Heart, Layout, Send, Shield, CheckCircle, Trophy, Star, Sparkles, Crown, Zap, Gift } from 'lucide-react';
+import { Share2, ArrowLeft, Heart, Layout, Trophy } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import { Rarity } from '../types';
 import { audio } from '../utils/audio';
 
-type ProfileTab = 'OVERVIEW' | 'FAVORITES' | 'ACHIEVEMENTS' | 'MESSAGES';
+type ProfileTab = 'OVERVIEW' | 'FAVORITES' | 'ACHIEVEMENTS';
 
 const RarityBadge = ({ rarity }: { rarity: Rarity }) => {
     const colors = {
@@ -24,9 +24,8 @@ const RarityBadge = ({ rarity }: { rarity: Rarity }) => {
 const Profile: React.FC = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { user: currentUser, sendMessage } = useUser();
+  const { user: currentUser } = useUser();
   const [activeTab, setActiveTab] = useState<ProfileTab>('OVERVIEW');
-  const [messageInput, setMessageInput] = useState('');
   const [filterRarity, setFilterRarity] = useState<Rarity | 'ALL'>('ALL');
 
   const displayUser = useMemo(() => {
@@ -45,12 +44,6 @@ const Profile: React.FC = () => {
   const handleTabChange = (t: ProfileTab) => {
     audio.playTab();
     setActiveTab(t);
-  };
-
-  const handleSendMessage = () => {
-    if (!messageInput.trim()) return;
-    sendMessage(displayUser.id, messageInput);
-    setMessageInput('');
   };
 
   const handlePrint = () => {
@@ -94,7 +87,7 @@ const Profile: React.FC = () => {
             ) : (
                 <>
                     <button onClick={() => audio.playTap()} className="px-8 py-3 bg-primary text-white rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl">Seguir</button>
-                    <button onClick={() => handleTabChange('MESSAGES')} className="px-8 py-3 bg-slate-800 text-slate-200 rounded-2xl text-xs font-black uppercase border border-slate-700 hover:bg-slate-700 transition-all">Mensagem</button>
+                    <button onClick={() => { audio.playTap(); navigate('/messages'); }} className="px-8 py-3 bg-slate-800 text-slate-200 rounded-2xl text-xs font-black uppercase border border-slate-700 hover:bg-slate-700 transition-all">Mensagem</button>
                 </>
             )}
         </div>
@@ -104,8 +97,7 @@ const Profile: React.FC = () => {
         {[
             { id: 'OVERVIEW', label: 'Resumo', icon: Layout },
             { id: 'FAVORITES', label: 'Desafios', icon: Heart },
-            { id: 'ACHIEVEMENTS', label: 'Conquistas', icon: Trophy },
-            { id: 'MESSAGES', label: 'Conversas', icon: MessageSquare }
+            { id: 'ACHIEVEMENTS', label: 'Conquistas', icon: Trophy }
         ].map(tab => (
             <button 
                 key={tab.id} onClick={() => handleTabChange(tab.id as ProfileTab)}
@@ -117,6 +109,12 @@ const Profile: React.FC = () => {
       </div>
 
       <div className="mt-8 transition-all duration-500">
+        {activeTab === 'OVERVIEW' && (
+            <div className="space-y-6 animate-slide-up">
+                 <SkillRadar skills={displayUser.skills} />
+            </div>
+        )}
+
         {activeTab === 'ACHIEVEMENTS' && (
             <div className="space-y-6 animate-slide-up">
                 <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
@@ -125,7 +123,26 @@ const Profile: React.FC = () => {
                         <button key={r} onClick={() => { audio.playTap(); setFilterRarity(r); }} className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${filterRarity === r ? 'bg-slate-700 border-slate-600 text-white' : 'bg-slate-800/20 border-slate-800 text-slate-600'}`}>{r}</button>
                     ))}
                 </div>
-                {/* Lista de conquistas... */}
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {achievements.map(ach => (
+                        <div key={ach.id} className="flex items-center gap-4 bg-slate-800/30 p-4 rounded-2xl border border-slate-700/50 hover:border-slate-600 transition-colors">
+                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-inner ${ach.isUnlocked ? 'bg-slate-700 text-white' : 'bg-slate-900 text-slate-700'}`}>
+                                {/* Aqui poderíamos renderizar ícones dinâmicos baseados no ach.icon */}
+                                <Trophy size={20} className={ach.isUnlocked ? 'text-yellow-500' : 'text-slate-700'} />
+                            </div>
+                            <div className="flex-1">
+                                <div className="flex justify-between items-start">
+                                    <h4 className={`text-sm font-bold ${ach.isUnlocked ? 'text-white' : 'text-slate-500'}`}>{ach.name}</h4>
+                                    <RarityBadge rarity={ach.rarity} />
+                                </div>
+                                <p className="text-xs text-slate-500 mt-1 line-clamp-2">{ach.description}</p>
+                                <div className="mt-2 text-[10px] font-bold text-indigo-400">+{ach.points} XP</div>
+                            </div>
+                        </div>
+                    ))}
+                    {achievements.length === 0 && <p className="text-slate-500 text-sm text-center col-span-full py-8">Nenhuma conquista encontrada nesta categoria.</p>}
+                </div>
             </div>
         )}
       </div>
