@@ -10,9 +10,9 @@ const TopBar: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-50 bg-dark/95 backdrop-blur-md px-4 py-3 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 bg-dark/95 backdrop-blur-md px-4 py-3 flex items-center gap-4">
       {/* Search Style Input (Estilo Play Store) */}
-      <div className="flex-1 max-w-2xl flex items-center play-search px-4 py-2.5 space-x-3 cursor-text">
+      <div className="flex-1 flex items-center play-search px-4 py-2.5 space-x-3 cursor-text">
         <Search size={18} className="text-slate-400" />
         <input 
           type="text" 
@@ -23,7 +23,7 @@ const TopBar: React.FC = () => {
         <Mic size={18} className="text-slate-400 cursor-pointer hover:text-white" />
       </div>
 
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 shrink-0">
         <button 
           onClick={() => { audio.playTap(); }}
           className="relative text-slate-400 hover:text-white p-1"

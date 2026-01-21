@@ -5,6 +5,7 @@ import TopBar from './components/TopBar';
 import Navigation from './components/Navigation';
 import BottomNav from './components/BottomNav';
 import Onboarding from './components/Onboarding';
+import ErrorBoundary from './components/ErrorBoundary';
 import { UserProvider, useUser } from './context/UserContext';
 import { Loader2 } from 'lucide-react';
 
@@ -62,11 +63,13 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <UserProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </UserProvider>
+    <ErrorBoundary>
+      <UserProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </UserProvider>
+    </ErrorBoundary>
   );
 };
 

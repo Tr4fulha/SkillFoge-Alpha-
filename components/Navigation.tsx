@@ -48,7 +48,7 @@ const Navigation: React.FC<NavigationProps> = ({ isOpen, onClose }) => {
             fixed top-0 left-0 bottom-0 w-64 bg-dark border-r border-slate-700 
             flex flex-col z-[70] transition-transform duration-300 ease-in-out
             ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-            md:translate-x-0 md:top-14 md:bottom-0 md:z-30 md:pt-6
+            md:translate-x-0 md:top-14 md:bottom-0 md:z-30 md:pt-2
             shadow-2xl md:shadow-none
         `}>
             {/* Mobile Header with Close Button */}

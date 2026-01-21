@@ -1,12 +1,25 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { UserProfile, Challenge, Category, Difficulty } from "../types";
+import { UserProfile, Challenge } from "../types";
 
-// Always initialize with process.env.API_KEY as a named parameter
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Inicialização Lazy (Preguiçosa) para evitar erros de runtime se process.env não estiver pronto
+let aiInstance: GoogleGenAI | null = null;
+
+const getAI = () => {
+  if (!aiInstance) {
+    // Tenta obter a chave de forma segura, suportando diferentes ambientes (Vite, CRA, Node)
+    const apiKey = typeof process !== 'undefined' ? process.env?.API_KEY : '';
+    
+    // Se não houver chave, inicializa com string vazia (o SDK pode lançar erro apenas na chamada)
+    // Isso previne que o app inteiro quebre no boot (tela azul)
+    aiInstance = new GoogleGenAI({ apiKey: apiKey || '' });
+  }
+  return aiInstance;
+};
 
 export const getMentorHelp = async (challengeTitle: string, challengeDesc: string, userQuestion: string): Promise<string> => {
   try {
+    const ai = getAI();
     const model = 'gemini-3-flash-preview';
     
     const systemInstruction = `
@@ -22,7 +35,6 @@ export const getMentorHelp = async (challengeTitle: string, challengeDesc: strin
       5. Use formatação Markdown para clareza.
     `;
 
-    // Always use ai.models.generateContent directly
     const response = await ai.models.generateContent({
       model: model,
       contents: userQuestion,
@@ -32,16 +44,16 @@ export const getMentorHelp = async (challengeTitle: string, challengeDesc: strin
       }
     });
 
-    // Access the .text property directly
     return response.text || "O mentor está pensando, mas não conseguiu formular uma resposta agora.";
   } catch (error) {
     console.error("Gemini Error:", error);
-    return "Erro ao conectar com o mentor virtual. Verifique sua conexão.";
+    return "Erro ao conectar com o mentor virtual. Verifique se a chave de API está configurada corretamente.";
   }
 };
 
 export const generateAdaptiveChallenge = async (user: UserProfile): Promise<Challenge | null> => {
     try {
+        const ai = getAI();
         const model = 'gemini-3-flash-preview';
         const prompt = `
             Gere um desafio técnico educacional adaptativo para um aluno com o seguinte perfil:
@@ -56,7 +68,6 @@ export const generateAdaptiveChallenge = async (user: UserProfile): Promise<Chal
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
-                // Use responseSchema for structured JSON output as recommended
                 responseSchema: {
                     type: Type.OBJECT,
                     properties: {

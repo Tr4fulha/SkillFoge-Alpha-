@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, Bug, Rocket, ChevronRight, X, Bot } from 'lucide-react';
 import { audio } from '../utils/audio';
+import { useScrollLock } from '../utils/hooks';
 
 interface Step {
   title: string;
@@ -40,6 +41,9 @@ const STEPS: Step[] = [
 const Onboarding: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+
+  // Trava o scroll do fundo se o onboarding estiver visível
+  useScrollLock(isVisible);
 
   useEffect(() => {
     const hasSeenOnboarding = localStorage.getItem('skillforge_onboarding_seen');
