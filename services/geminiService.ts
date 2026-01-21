@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import { UserProfile, Challenge } from "../types";
 
@@ -7,24 +6,9 @@ let aiInstance: GoogleGenAI | null = null;
 
 const getAI = () => {
   if (!aiInstance) {
-    // Tenta obter a chave de forma segura suportando Vite (import.meta.env) e Node/Webpack (process.env)
-    // Na Vercel, você DEVE configurar a variável de ambiente chamada 'VITE_API_KEY'
-    let apiKey = '';
-    
-    try {
-        // @ts-ignore
-        if (import.meta.env && import.meta.env.VITE_API_KEY) {
-            // @ts-ignore
-            apiKey = import.meta.env.VITE_API_KEY;
-        } else if (typeof process !== 'undefined' && process.env) {
-            apiKey = process.env.API_KEY || process.env.VITE_API_KEY || '';
-        }
-    } catch (e) {
-        console.warn("Erro ao ler variáveis de ambiente", e);
-    }
-    
-    // Se não houver chave, inicializa com string vazia para não quebrar o app na inicialização
-    aiInstance = new GoogleGenAI({ apiKey: apiKey || '' });
+    // The API key must be obtained exclusively from the environment variable process.env.API_KEY.
+    // Assume this variable is pre-configured, valid, and accessible.
+    aiInstance = new GoogleGenAI({ apiKey: process.env.API_KEY });
   }
   return aiInstance;
 };
@@ -59,7 +43,7 @@ export const getMentorHelp = async (challengeTitle: string, challengeDesc: strin
     return response.text || "O mentor está pensando, mas não conseguiu formular uma resposta agora.";
   } catch (error) {
     console.error("Gemini Error:", error);
-    return "Erro ao conectar com o mentor virtual. Verifique se a chave de API está configurada no Vercel (VITE_API_KEY).";
+    return "Erro ao conectar com o mentor virtual. Verifique a configuração da chave de API.";
   }
 };
 
