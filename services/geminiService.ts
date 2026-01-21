@@ -2,16 +2,28 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { UserProfile, Challenge } from "../types";
 
-// Inicialização Lazy (Preguiçosa) para evitar erros de runtime se process.env não estiver pronto
+// Inicialização Lazy (Preguiçosa) para evitar erros de runtime
 let aiInstance: GoogleGenAI | null = null;
 
 const getAI = () => {
   if (!aiInstance) {
-    // Tenta obter a chave de forma segura, suportando diferentes ambientes (Vite, CRA, Node)
-    const apiKey = typeof process !== 'undefined' ? process.env?.API_KEY : '';
+    // Tenta obter a chave de forma segura suportando Vite (import.meta.env) e Node/Webpack (process.env)
+    // Na Vercel, você DEVE configurar a variável de ambiente chamada 'VITE_API_KEY'
+    let apiKey = '';
     
-    // Se não houver chave, inicializa com string vazia (o SDK pode lançar erro apenas na chamada)
-    // Isso previne que o app inteiro quebre no boot (tela azul)
+    try {
+        // @ts-ignore
+        if (import.meta.env && import.meta.env.VITE_API_KEY) {
+            // @ts-ignore
+            apiKey = import.meta.env.VITE_API_KEY;
+        } else if (typeof process !== 'undefined' && process.env) {
+            apiKey = process.env.API_KEY || process.env.VITE_API_KEY || '';
+        }
+    } catch (e) {
+        console.warn("Erro ao ler variáveis de ambiente", e);
+    }
+    
+    // Se não houver chave, inicializa com string vazia para não quebrar o app na inicialização
     aiInstance = new GoogleGenAI({ apiKey: apiKey || '' });
   }
   return aiInstance;
@@ -47,7 +59,7 @@ export const getMentorHelp = async (challengeTitle: string, challengeDesc: strin
     return response.text || "O mentor está pensando, mas não conseguiu formular uma resposta agora.";
   } catch (error) {
     console.error("Gemini Error:", error);
-    return "Erro ao conectar com o mentor virtual. Verifique se a chave de API está configurada corretamente.";
+    return "Erro ao conectar com o mentor virtual. Verifique se a chave de API está configurada no Vercel (VITE_API_KEY).";
   }
 };
 
